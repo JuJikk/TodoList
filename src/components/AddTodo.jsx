@@ -10,7 +10,7 @@ const styles = {
   },
 };
 
-const AddTodo = (props) => {
+const AddTodo = ({ onAddTodo }) => {
   const [title, setTitle] = useState("");
   return (
     <>
@@ -26,8 +26,9 @@ const AddTodo = (props) => {
 
         <button
           className="myButton"
-          onClick={() => {
-            props.props.onAddTodo(title);
+          onClick={(e) => {
+            e.preventDefault();
+            onAddTodo(title);
             setTitle("");
           }}
         >

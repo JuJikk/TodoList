@@ -24,13 +24,34 @@ function App() {
     ]);
   }
 
+  function handleChangeTodo(nextTodo) {
+    setTodos(
+      todos.map((t) => {
+        if (t.id === nextTodo.id) {
+          return nextTodo;
+        } else {
+          return t;
+        }
+      }),
+    );
+  }
+
+  function handleDeleteTodo(todoId) {
+    setTodos(todos.filter((t) => t.id !== todoId));
+  }
+
   return (
     <ul className="wrapper">
       <h1>Your TODO list</h1>
       <h3 style={{ margin: 0 }}>Enter your task below</h3>
       <AddTodo onAddTodo={handleAddTodo} />
       {todos.map((todo) => (
-        <TodoItem todo={todo} key={todo.id} />
+        <TodoItem
+          todo={todo}
+          key={todo.id}
+          onChangeTodo={handleChangeTodo}
+          onDeleteTodo={handleDeleteTodo}
+        />
       ))}
     </ul>
   );
