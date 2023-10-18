@@ -7,11 +7,22 @@ let nextId = 3;
 const initialTodos = [
   { id: 0, title: "Buy milk", done: true },
   { id: 1, title: "Eat tacos", done: false },
-  { id: 2, title: "Brew tea", done: false },
+  { id: 2, title: "Brew tea", done: true },
 ];
 
 function App() {
-  const [todos, setTodos] = useState(initialTodos);
+  let [todos, setTodos] = useState(initialTodos);
+
+  function onToggleTodo(id) {
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id === id) {
+          todo.done = !todo.done;
+        }
+        return todo;
+      }),
+    );
+  }
 
   function handleAddTodo(title) {
     setTodos([
@@ -51,6 +62,7 @@ function App() {
           key={todo.id}
           onChangeTodo={handleChangeTodo}
           onDeleteTodo={handleDeleteTodo}
+          onChange={onToggleTodo}
         />
       ))}
     </ul>
