@@ -3,7 +3,7 @@ import AddTodo from "./components/AddTodo.jsx";
 import { TodoItem } from "./components/TodoItem.jsx";
 import { useState } from "react";
 
-let nextId = 3;
+let nextId = 0;
 const initialTodos = [
   { id: 0, title: "Buy milk", done: true },
   { id: 1, title: "Eat tacos", done: false },
@@ -11,7 +11,23 @@ const initialTodos = [
 ];
 
 function App() {
-  let [todos, setTodos] = useState(initialTodos);
+  const [todos, setTodos] = useState([]);
+  // setTodos(JSON.parse(todos));
+  // localStorage.setItem("todos", JSON.stringify(todos));
+  function handleAddTodo(title) {
+    const raw = JSON.parse(localStorage.getItem("todos"));
+    const newTodos = [
+      ...raw,
+      {
+        id: nextId + 1,
+        title: title,
+        done: false,
+      },
+    ];
+
+    localStorage.setItem("todos", JSON.stringify(newTodos));
+    setTodos(newTodos);
+  }
 
   function onToggleTodo(id) {
     setTodos(
@@ -24,16 +40,16 @@ function App() {
     );
   }
 
-  function handleAddTodo(title) {
-    setTodos([
-      ...todos,
-      {
-        id: nextId++,
-        title: title,
-        done: false,
-      },
-    ]);
-  }
+  // function handleAddTodo(title) {
+  //   setTodos([
+  //     ...todos,
+  //     {
+  //       id: nextId++,
+  //       title: title,
+  //       done: false,
+  //     },
+  //   ]);
+  // }
 
   function handleChangeTodo(nextTodo) {
     setTodos(

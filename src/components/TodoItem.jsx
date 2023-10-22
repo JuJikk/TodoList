@@ -17,7 +17,12 @@ export function TodoItem({ todo, onChangeTodo, onDeleteTodo, onChange }) {
           />
           {todo.title}
         </p>
-        <button className="button" onClick={() => onDeleteTodo(todo.id)}>
+        <button
+          className="button"
+          onClick={() => {
+            onDeleteTodo(todo.id);
+          }}
+        >
           X
         </button>
       </li>
